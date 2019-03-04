@@ -12,7 +12,9 @@ class Stan(unittest.TestCase):
         self.driver = webdriver.Chrome()
 
     def test_one(self):
-    	lista = []
+    	lista = {}
+    	lista2 = []
+    	brojac = 0
 
     	driver = self.driver
     	driver.get("https://www.malioglasi.com")
@@ -28,20 +30,30 @@ class Stan(unittest.TestCase):
     	
     	driver.find_element_by_xpath("//input[@value='Pretraži']").click()
 
-    	broj_telefona = "497-795"
+    	tihin_broj = "497-795"
 
     	while(True):
     		try:
     			driver.find_element_by_xpath("//img[@src='../nlimages/or.gif']").click()
-    			svi_brojevi_telefona = driver.find_elements_by_css_selector("span.crveni")
+    			oglas_sadrzaj = driver.find_elements_by_xpath("//span[@class='crveni']/parent::div/parent::div/parent::td/parent::tr/preceding-sibling::tr[1]")
+    			oglas_broj_telefona = driver.find_elements_by_xpath("//span[@class='crveni']")
+    			oglas_datum_vrijeme_objave = driver.find_elements_by_xpath("//span[@class='crveni']/parent::div/parent::div/parent::td/parent::tr/following-sibling::tr")
 
-		    	for x in svi_brojevi_telefona:
-		    		lista.append(x.text)
+		    	for x, y, z in zip(oglas_sadrzaj, oglas_broj_telefona, oglas_datum_vrijeme_objave):
+		    		isjeckan_z = z.text.split('|')[1]
+
+		    		lista[brojac] = {}
+		    		lista[brojac]['oglas_sadrzaj'] = x.text
+		    		lista[brojac]['oglas_broj_telefona'] = y.text
+		    		lista[brojac]['oglas_datum_vrijeme_objave'] = isjeckan_z
+
+		    		brojac += 1
 
     		except NoSuchElementException:
     			break
 
-    	print(lista)
+    	for x in range(brojac):
+    		print("{0}.\nSadrzaj:\n{1}Telefon:\n{2}\nDatum i vrijeme:\n{3}\n".format(x, lista[x]['oglas_sadrzaj'], lista[x]['oglas_broj_telefona'], lista[x]['oglas_datum_vrijeme_objave']))
 
     def tearDown(self):
         self.driver.close()
