@@ -16,16 +16,26 @@ class Stan(unittest.TestCase):
     def test_one(self):
     	#excel stuff
     	book = Workbook()
-    	sheet1 = book.add_sheet('Prvi Sheet')
-    	prvi_row = sheet1.row(0)
-    	prvi_row.write(0, 'Br.')
-    	prvi_row.write(1, 'Sadrzaj')
-    	prvi_row.write(2, 'Broj Telefona')
-    	prvi_row.write(3, 'Datum')
-    	prvi_row.write(4, 'Vrijeme')
+    	first_sheet = book.add_sheet('Prvi Sheet')
+
+    	first_row_style = easyxf('pattern: pattern solid, fore_colour aqua; borders: bottom thick, left thin, right thin, bottom_colour blue_gray, left_colour blue_gray, right_colour blue_gray; font: bold True, height 240; alignment: horizontal center, vertical center')
+    	column_first_style = easyxf('alignment: horizontal center, vertical center, wrap True; pattern: pattern solid, fore_colour gray40; font: colour white; borders: bottom thin, top thin, top_colour black, bottom_colour gray80')
+    	column_second_style = easyxf('alignment: horizontal center, vertical center, wrap True; pattern: pattern solid, fore_colour gray25; borders: left thin, top thin, right thin, left_colour gray80, top_colour black, right_colour gray80')
+
+    	first_sheet.col(2).width = 1500
+    	first_sheet.col(3).width = 12000
+    	first_sheet.col(4).width = 6000
+    	first_sheet.col(5).width = 5000
+    	first_sheet.col(6).width = 5000
+    	first_sheet.row(2).height = 500
+    	first_row = first_sheet.row(2)
+    	first_row.write(2, 'Br.', first_row_style)
+    	first_row.write(3, 'Sadrzaj', first_row_style)
+    	first_row.write(4, 'Broj Telefona', first_row_style)
+    	first_row.write(5, 'Datum', first_row_style)
+    	first_row.write(6, 'Vrijeme', first_row_style)
 
     	lista = {}
-    	lista2 = []
     	brojac = 0
 
     	driver = self.driver
@@ -43,7 +53,7 @@ class Stan(unittest.TestCase):
     	driver.find_element_by_xpath("//input[@value='Pretraži']").click()
 
     	tihin_broj = "497-795"
-
+    	# kita = True
     	while(True):
     		try:
     			driver.find_element_by_xpath("//img[@src='../nlimages/or.gif']").click()
@@ -62,16 +72,18 @@ class Stan(unittest.TestCase):
 		    		lista[brojac]['oglas_vrijeme_objave'] = isjeckan_vrijeme
 
 		    		brojac += 1
+		    	# kita = False
 
     		except NoSuchElementException:
     			break
 
     	for x in range(brojac):
-    		sheet1.row(x + 1).write(0, x + 1)
-    		sheet1.row(x + 1).write(1, lista[x]['oglas_sadrzaj'])
-    		sheet1.row(x + 1).write(2, lista[x]['oglas_broj_telefona'])
-    		sheet1.row(x + 1).write(3, lista[x]['oglas_datum_objave'])
-    		sheet1.row(x + 1).write(4, lista[x]['oglas_vrijeme_objave'])
+    		first_sheet.row(x + 3).write(2, "{0}.".format(x + 1), column_second_style)
+    		first_sheet.row(x + 3).height = 2000
+    		first_sheet.row(x + 3).write(3, lista[x]['oglas_sadrzaj'], column_first_style)
+    		first_sheet.row(x + 3).write(4, lista[x]['oglas_broj_telefona'],column_second_style)
+    		first_sheet.row(x + 3).write(5, lista[x]['oglas_datum_objave'], column_first_style)
+    		first_sheet.row(x + 3).write(6, lista[x]['oglas_vrijeme_objave'], column_second_style)
 
     		# print("{0}.\nSadrzaj:\n{1}Telefon:\n{2}\nDatum i vrijeme:\n{3}\n".format(x, lista[x]['oglas_sadrzaj'], lista[x]['oglas_broj_telefona'], lista[x]['oglas_datum_vrijeme_objave']))
 
@@ -80,30 +92,30 @@ class Stan(unittest.TestCase):
     # def test_two(self):
     # 	book = Workbook()
 
-    # 	prvi_sheet = book.add_sheet('Kurcina')
-    # 	# prvi_sheet.write(0, 0, 'A1')
-    # 	# prvi_sheet.write(0, 1, 'B1')
-    # 	row_first_style = easyxf('pattern: pattern solid, fore_colour aqua; borders: bottom thick, left thin, right thin, bottom_colour blue_gray, left_colour blue_gray, right_colour blue_gray; font: bold True, height 240; alignment: horizontal center, vertical center')
+    # 	first_sheet = book.add_sheet('Kurcina')
+    # 	# first_sheet.write(0, 0, 'A1')
+    # 	# first_sheet.write(0, 1, 'B1')
+    # 	first_row_style = easyxf('pattern: pattern solid, fore_colour aqua; borders: bottom thick, left thin, right thin, bottom_colour blue_gray, left_colour blue_gray, right_colour blue_gray; font: bold True, height 240; alignment: horizontal center, vertical center')
     # 	column_style = easyxf('alignment: wrap True')
 
     # 	# for i in range(0, 10, 2):
-    # 	# 	prvi_sheet.row(i).set_style(row_first_style)
-    # 	row1 = prvi_sheet.row(0)
-    # 	prvi_sheet.col(0).width = 1500
-    # 	prvi_sheet.col(1).width = 6500
-    # 	prvi_sheet.col(2).width = 5000
-    # 	prvi_sheet.col(3).width = 4000
-    # 	prvi_sheet.col(4).width = 4000
-    # 	prvi_sheet.row(0).height = 500
-    # 	row1.write(0, 'Br.', row_first_style)
-    # 	row1.write(1, 'Sadrzaj', row_first_style)
-    # 	row1.write(2, 'Broj Telefona', row_first_style)
-    # 	row1.write(3, 'Datum', row_first_style)
-    # 	row1.write(4, 'Vrijeme', row_first_style)
-    # 	prvi_sheet.col(1).set_style(column_style)
+    # 	# 	first_sheet.row(i).set_style(first_row_style)
+    # 	first_row = first_sheet.row(0)
+    # 	first_sheet.col(0).width = 1500
+    # 	first_sheet.col(1).width = 6500
+    # 	first_sheet.col(2).width = 5000
+    # 	first_sheet.col(3).width = 4000
+    # 	first_sheet.col(4).width = 4000
+    # 	first_sheet.row(0).height = 500
+    # 	first_row.write(0, 'Br.', first_row_style)
+    # 	first_row.write(1, 'Sadrzaj', first_row_style)
+    # 	first_row.write(2, 'Broj Telefona', first_row_style)
+    # 	first_row.write(3, 'Datum', first_row_style)
+    # 	first_row.write(4, 'Vrijeme', first_row_style)
+    # 	first_sheet.col(1).set_style(column_style)
     # 	#column_style cu morati prikaciti na svaki unos/celiju
-    # 	# prvi_sheet.col(0).width = 10000
-    # 	# prvi_sheet.row(0).height = 10000
+    # 	# first_sheet.col(0).width = 10000
+    # 	# first_sheet.row(0).height = 10000
 
     # 	book.save('testiramo2.xls')
 
