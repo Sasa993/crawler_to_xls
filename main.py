@@ -13,95 +13,99 @@ class Stan(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
 
-    # def test_one(self):
-    # 	#excel stuff
-    # 	book = Workbook()
-    # 	sheet1 = book.add_sheet('Prvi Sheet')
-    # 	prvi_row = sheet1.row(0)
-    # 	prvi_row.write(0, 'Br.')
-    # 	prvi_row.write(1, 'Sadrzaj')
-    # 	prvi_row.write(2, 'Broj Telefona')
-    # 	prvi_row.write(3, 'Datum i Vrijeme')
-
-    # 	lista = {}
-    # 	lista2 = []
-    # 	brojac = 0
-
-    # 	driver = self.driver
-    # 	driver.get("https://www.malioglasi.com")
-
-    # 	grupa_oglasa = Select(driver.find_element_by_name("grupar"))
-    # 	grupa_oglasa.select_by_visible_text("Stanovi")
-
-    # 	tip_oglasa = Select(driver.find_element_by_name("tipr"))
-    # 	tip_oglasa.select_by_visible_text("Izdavanje")
-
-    # 	grad = Select(driver.find_element_by_name("gradr"))
-    # 	grad.select_by_visible_text("Banjaluka")
-    	
-    # 	driver.find_element_by_xpath("//input[@value='Pretraži']").click()
-
-    # 	tihin_broj = "497-795"
-
-    # 	while(True):
-    # 		try:
-    # 			driver.find_element_by_xpath("//img[@src='../nlimages/or.gif']").click()
-    # 			oglas_sadrzaj = driver.find_elements_by_xpath("//span[@class='crveni']/parent::div/parent::div/parent::td/parent::tr/preceding-sibling::tr[1]")
-    # 			oglas_broj_telefona = driver.find_elements_by_xpath("//span[@class='crveni']")
-    # 			oglas_datum_vrijeme_objave = driver.find_elements_by_xpath("//span[@class='crveni']/parent::div/parent::div/parent::td/parent::tr/following-sibling::tr")
-
-		  #   	for x, y, z in zip(oglas_sadrzaj, oglas_broj_telefona, oglas_datum_vrijeme_objave):
-		  #   		isjeckan_z = z.text.split('|')[1]
-
-		  #   		lista[brojac] = {}
-		  #   		lista[brojac]['oglas_sadrzaj'] = x.text
-		  #   		lista[brojac]['oglas_broj_telefona'] = y.text
-		  #   		lista[brojac]['oglas_datum_vrijeme_objave'] = isjeckan_z
-
-		  #   		brojac += 1
-
-    # 		except NoSuchElementException:
-    # 			break
-
-    # 	for x in range(brojac):
-    # 		sheet1.row(x + 1).write(0, x)
-    # 		sheet1.row(x + 1).write(1, lista[x]['oglas_sadrzaj'])
-    # 		sheet1.row(x + 1).write(2, lista[x]['oglas_broj_telefona'])
-    # 		sheet1.row(x + 1).write(3, lista[x]['oglas_datum_vrijeme_objave'])
-
-    # 		# print("{0}.\nSadrzaj:\n{1}Telefon:\n{2}\nDatum i vrijeme:\n{3}\n".format(x, lista[x]['oglas_sadrzaj'], lista[x]['oglas_broj_telefona'], lista[x]['oglas_datum_vrijeme_objave']))
-
-    # 	book.save('testiramo.xls')
-
-    def test_two(self):
+    def test_one(self):
+    	#excel stuff
     	book = Workbook()
+    	sheet1 = book.add_sheet('Prvi Sheet')
+    	prvi_row = sheet1.row(0)
+    	prvi_row.write(0, 'Br.')
+    	prvi_row.write(1, 'Sadrzaj')
+    	prvi_row.write(2, 'Broj Telefona')
+    	prvi_row.write(3, 'Datum')
+    	prvi_row.write(4, 'Vrijeme')
 
-    	prvi_sheet = book.add_sheet('Kurcina')
-    	# prvi_sheet.write(0, 0, 'A1')
-    	# prvi_sheet.write(0, 1, 'B1')
-    	row_first_style = easyxf('pattern: pattern solid, fore_colour aqua; borders: bottom thick, left thin, right thin, bottom_colour blue_gray, left_colour blue_gray, right_colour blue_gray; font: bold True, height 240; alignment: horizontal center, vertical center')
-    	column_style = easyxf('alignment: wrap True')
+    	lista = {}
+    	lista2 = []
+    	brojac = 0
 
-    	# for i in range(0, 10, 2):
-    	# 	prvi_sheet.row(i).set_style(row_first_style)
-    	row1 = prvi_sheet.row(0)
-    	prvi_sheet.col(0).width = 1500
-    	prvi_sheet.col(1).width = 6500
-    	prvi_sheet.col(2).width = 5000
-    	prvi_sheet.col(3).width = 4000
-    	prvi_sheet.col(4).width = 4000
-    	prvi_sheet.row(0).height = 500
-    	row1.write(0, 'Br.', row_first_style)
-    	row1.write(1, 'Sadrzaj', row_first_style)
-    	row1.write(2, 'Broj Telefona', row_first_style)
-    	row1.write(3, 'Datum', row_first_style)
-    	row1.write(4, 'Vrijeme', row_first_style)
-    	prvi_sheet.col(1).set_style(column_style)
-    	#column_style cu morati prikaciti na svaki unos/celiju
-    	# prvi_sheet.col(0).width = 10000
-    	# prvi_sheet.row(0).height = 10000
+    	driver = self.driver
+    	driver.get("https://www.malioglasi.com")
 
-    	book.save('testiramo2.xls')
+    	grupa_oglasa = Select(driver.find_element_by_name("grupar"))
+    	grupa_oglasa.select_by_visible_text("Stanovi")
+
+    	tip_oglasa = Select(driver.find_element_by_name("tipr"))
+    	tip_oglasa.select_by_visible_text("Izdavanje")
+
+    	grad = Select(driver.find_element_by_name("gradr"))
+    	grad.select_by_visible_text("Banjaluka")
+    	
+    	driver.find_element_by_xpath("//input[@value='Pretraži']").click()
+
+    	tihin_broj = "497-795"
+
+    	while(True):
+    		try:
+    			driver.find_element_by_xpath("//img[@src='../nlimages/or.gif']").click()
+    			oglas_sadrzaj = driver.find_elements_by_xpath("//span[@class='crveni']/parent::div/parent::div/parent::td/parent::tr/preceding-sibling::tr[1]")
+    			oglas_broj_telefona = driver.find_elements_by_xpath("//span[@class='crveni']")
+    			oglas_datum_vrijeme_objave = driver.find_elements_by_xpath("//span[@class='crveni']/parent::div/parent::div/parent::td/parent::tr/following-sibling::tr")
+
+		    	for x, y, z in zip(oglas_sadrzaj, oglas_broj_telefona, oglas_datum_vrijeme_objave):
+		    		isjeckan_datum = z.text.split('|')[1].split(' ')[1]
+		    		isjeckan_vrijeme = z.text.split('|')[1].split(' ')[2]
+
+		    		lista[brojac] = {}
+		    		lista[brojac]['oglas_sadrzaj'] = x.text
+		    		lista[brojac]['oglas_broj_telefona'] = y.text
+		    		lista[brojac]['oglas_datum_objave'] = isjeckan_datum
+		    		lista[brojac]['oglas_vrijeme_objave'] = isjeckan_vrijeme
+
+		    		brojac += 1
+
+    		except NoSuchElementException:
+    			break
+
+    	for x in range(brojac):
+    		sheet1.row(x + 1).write(0, x + 1)
+    		sheet1.row(x + 1).write(1, lista[x]['oglas_sadrzaj'])
+    		sheet1.row(x + 1).write(2, lista[x]['oglas_broj_telefona'])
+    		sheet1.row(x + 1).write(3, lista[x]['oglas_datum_objave'])
+    		sheet1.row(x + 1).write(4, lista[x]['oglas_vrijeme_objave'])
+
+    		# print("{0}.\nSadrzaj:\n{1}Telefon:\n{2}\nDatum i vrijeme:\n{3}\n".format(x, lista[x]['oglas_sadrzaj'], lista[x]['oglas_broj_telefona'], lista[x]['oglas_datum_vrijeme_objave']))
+
+    	book.save('testiramo.xls')
+
+    # def test_two(self):
+    # 	book = Workbook()
+
+    # 	prvi_sheet = book.add_sheet('Kurcina')
+    # 	# prvi_sheet.write(0, 0, 'A1')
+    # 	# prvi_sheet.write(0, 1, 'B1')
+    # 	row_first_style = easyxf('pattern: pattern solid, fore_colour aqua; borders: bottom thick, left thin, right thin, bottom_colour blue_gray, left_colour blue_gray, right_colour blue_gray; font: bold True, height 240; alignment: horizontal center, vertical center')
+    # 	column_style = easyxf('alignment: wrap True')
+
+    # 	# for i in range(0, 10, 2):
+    # 	# 	prvi_sheet.row(i).set_style(row_first_style)
+    # 	row1 = prvi_sheet.row(0)
+    # 	prvi_sheet.col(0).width = 1500
+    # 	prvi_sheet.col(1).width = 6500
+    # 	prvi_sheet.col(2).width = 5000
+    # 	prvi_sheet.col(3).width = 4000
+    # 	prvi_sheet.col(4).width = 4000
+    # 	prvi_sheet.row(0).height = 500
+    # 	row1.write(0, 'Br.', row_first_style)
+    # 	row1.write(1, 'Sadrzaj', row_first_style)
+    # 	row1.write(2, 'Broj Telefona', row_first_style)
+    # 	row1.write(3, 'Datum', row_first_style)
+    # 	row1.write(4, 'Vrijeme', row_first_style)
+    # 	prvi_sheet.col(1).set_style(column_style)
+    # 	#column_style cu morati prikaciti na svaki unos/celiju
+    # 	# prvi_sheet.col(0).width = 10000
+    # 	# prvi_sheet.row(0).height = 10000
+
+    # 	book.save('testiramo2.xls')
 
     def tearDown(self):
         self.driver.close()
